@@ -55,6 +55,7 @@ const App = () => {
               </SignedOut>
             }
           />
+
           {/* Redirect unauthenticated user to sign-in */}
           <Route
             path="*"
