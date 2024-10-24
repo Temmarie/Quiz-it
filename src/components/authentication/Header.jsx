@@ -11,7 +11,7 @@ const Header = () => {
       <div className="flex items-center">
         <Link to="/">
           <div className="text-lg font-bold text-purple-300 uppercase">
-            ClerkApp
+            QUIZ IT
           </div>
         </Link>
       </div>

@@ -1,12 +1,16 @@
 import React from 'react';
 
-const HomePage = () => {
+const HomePage = ({  startQuiz ,showInstructionsScreen }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-4xl font-bold text-purple-600 mb-4">Welcome to Clerk App</h1>
-      <p className="text-lg text-gray-700 mb-2">This is a public homepage that anyone can view.</p>
-      <p className="text-md text-gray-600">Please sign in to access more features. I&aposll likely include the leaderboard here if i choose to... </p>
-    </div>
+      <div className="flex flex-col items-center justify-center h-screen bg-white text-indigo-600">
+          <h2 className="text-4xl font-bold mb-4">Welcome to the Quiz!</h2>
+
+          <button className="bg-indigo-500 text-white px-6 py-3 rounded-lg mt-4  mb-4" onClick={showInstructionsScreen} aria-label="Show Instructions" >
+            Show Instructions </button>
+
+          <button className="bg-indigo-500 text-white px-6 py-3 rounded-lg" onClick={startQuiz}  aria-label="Start Quiz">
+              Start Quiz </button>
+      </div>
   );
 };
 
