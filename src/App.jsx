@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
-import Dashboard from './components/Dashboard';
-import Profile from './components/Profile';
-import SignInPage from './components/SignIn';
-import SignUpPage from './components/SignUp';
-import HomePage from './components/HomePage';
-import Layout from './components/Layout';
+import Dashboard from './components/authentication/Dashboard';
+import Profile from './components/authentication/Profile';
+import SignInPage from './components/authentication/SignIn';
+import SignUpPage from './components/authentication/SignUp';
+import HomePage from './components/authentication/HomePage';
+import Layout from './components/authentication/Layout';
 import './index.css'
 
 const App = () => {
