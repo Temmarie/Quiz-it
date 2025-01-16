@@ -7,19 +7,26 @@ import SignInPage from './components/authentication/SignIn';
 import SignUpPage from './components/authentication/SignUp';
 import HomePage from './components/authentication/HomePage';
 import Layout from './components/authentication/Layout';
-import './index.css'
+import Quiz from './components/quiz/Quiz';
+import QuestionsPage from "./components/quiz/QuestionsPage";
+import Instructions from './components/quiz/Instructions';
+import './index.css';
 
 const App = () => {
   return (
     <Router>
       <Layout>
         <Routes>
-          {/* HomePage Route */}
+          {/* Home Page */}
           <Route
             path="/"
-            element={<HomePage />}
+            element={
+              <SignedIn>
+                <HomePage />
+              </SignedIn>
+            }
           />
-          {/* Dashboard Route */}
+          {/* Dashboard */}
           <Route
             path="/dashboard"
             element={
@@ -28,7 +35,35 @@ const App = () => {
               </SignedIn>
             }
           />
-          {/* Profile Route */}
+          {/* Instructions Page */}
+          <Route
+            path="/instructions"
+            element={
+              <SignedIn>
+                <Instructions />
+              </SignedIn>
+            }
+          />
+          {/* Quiz Page */}
+          <Route
+            path="/quiz"
+            element={
+              <SignedIn>
+                <Quiz />
+              </SignedIn>
+            }
+          />
+
+<Route
+            path="/questions"
+            element={
+              <SignedIn>
+                <QuestionsPage />
+              </SignedIn>
+            }
+          />
+
+          {/* Profile */}
           <Route
             path="/profile"
             element={
@@ -37,7 +72,7 @@ const App = () => {
               </SignedIn>
             }
           />
-          {/* Sign In Route */}
+          {/* Sign-In */}
           <Route
             path="/sign-in"
             element={
@@ -46,7 +81,7 @@ const App = () => {
               </SignedOut>
             }
           />
-          {/* Sign Up Route */}
+          {/* Sign-Up */}
           <Route
             path="/sign-up"
             element={
@@ -55,8 +90,7 @@ const App = () => {
               </SignedOut>
             }
           />
-
-          {/* Redirect unauthenticated user to sign-in */}
+          {/* Redirect Unauthenticated Users */}
           <Route
             path="*"
             element={
