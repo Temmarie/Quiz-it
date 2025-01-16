@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Questions from "./Question";
+import { Link } from 'react-router-dom';
 
 function QuestionsPage() {
   const location = useLocation();
@@ -72,12 +73,23 @@ function QuestionsPage() {
           <h2 className="text-indigo-700 font-bold text-2xl mb-4">
             Your Score: {score} / {questions.length}
           </h2>
+
+          <div className="flex justify-around justify-center">
           <button
             onClick={() => window.location.reload()}
-            className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700"
+            className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 capitalize"
           >
-            Play Again
+            Play {category.replace(/-/g, " ")} Again
           </button>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 capitalise"
+          >
+             <Link to="/quiz">Select new category</Link>
+           
+          </button>
+          </div>
+         
         </div>
       ) : (
         <>
@@ -97,13 +109,13 @@ function QuestionsPage() {
         </>
       )}
 
-      <div className="mt-4 text-indigo-500">
+      <div className="mt-4 text-indigo-600">
         {showFeedback && <p>{feedbackMessage}</p>}
       </div>
 
       {/* Progress bar container */}
       <div className="w-full bg-indigo-50 rounded-full h-4 mt-4 relative">
-        <div className="bg-indigo-500 h-4 rounded-full text-white flex items-center justify-center" style={{ width: `${progressPercentage}%` }}>
+        <div className="bg-indigo-600 h-4 rounded-full text-white flex items-center justify-center" style={{ width: `${progressPercentage}%` }}>
           <p className="text-center w-full">{currentQuestionIndex + 1} / {questions.length}</p>
         </div>
       </div> 

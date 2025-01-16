@@ -41,7 +41,7 @@ function Quiz() {
       </h1>
       <select
         onChange={handleCategoryChange}
-        className="w-full p-2 border-2 border-indigo-600 rounded-lg text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
+        className="w-full p-2 border-2 border-indigo-600 rounded-lg text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
       >
         <option value="">
           {categories.length === 0 ? "Loading categories..." : "Select a category"}

@@ -18,7 +18,7 @@ const HomePage = () => {
     No need to log in to get started—just pick a category and play! Want to track your progress and compete with others? Log in to unlock your personalized dashboard with a scoreboard to see how you rank in your favorite categories.
   </p>
   <button
-    className="mt-6 bg-indigo-600 text-white px-4 py-2 rounded-lg"
+    className="mt-6 bg-indigo-600 text-white px-4 py-2 rounded-lg  hover:bg-indigo-700"
     onClick={handleStartQuiz}
   >
     Start Quiz
