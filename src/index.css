@@ -58,7 +58,7 @@
 }
 
 
-.cl-internal-dqnjy0, .cl-internal-1u67iw4, .cl-internal-bolkfx, .cl-internal-1xpngvq, .cl-internal-1u67iw4:hover{
+.cl-internal-dqnjy0, .cl-internal-1u67iw4, .cl-internal-bolkfx, .cl-internal-1xpngvq, .cl-internal-1u67iw4:hover, .cl-internal-3gh7hq, .cl-internal-1lldyk3, .cl-internal-1lldyk3:hover, .cl-internal-1yphags{
     color: rgb(30 27 75);
 }
 
@@ -71,7 +71,11 @@
 
 }
 
-.cl-internal-1j5cao4, .cl-internal-q7chm5 {
+.cl-internal-1j5cao4, .cl-internal-q7chm5 , .cl-internal-muj3sv {
     background-color: rgb(224 231 255);
     color:  rgb(79 70 229);
+}
+
+.cl-internal-d50gl1, .cl-internal-1dauvpw  {
+    display: none;
 }

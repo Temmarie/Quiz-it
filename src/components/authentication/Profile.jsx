@@ -20,7 +20,7 @@ const Profile = () => {
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-white to-indigo-100 p-8">
       <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         {/* Header Section */}
-        <div className="bg-indigo-700 text-white p-6">
+        <div className="bg-indigo-950 text-white p-6">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold capitalize">Welcome,  {user ? user.username : user.firstName}!</h1>
