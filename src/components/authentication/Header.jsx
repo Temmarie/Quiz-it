@@ -38,7 +38,7 @@ const Header = () => {
               to="/dashboard"
               className=" hover:text-indigo-400 mr-4"
             >
-              Dashboard
+              Stats
             </Link>
             <Link
               to="/profile"

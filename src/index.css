@@ -1,3 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Bricolage Grotesque", serif;
+    font-optical-sizing: auto;
+    font-variation-settings:  "wdth" 100;
+}
+
+.cl-internal-13lvar6 {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    flex: 0 0 14.25rem;
+    width: 14.25rem;
+    position: relative;
+    max-width: 14.25rem;
+    padding: 1.5rem 1.25rem 1rem 0.75rem;
+    margin-right: -0.5rem;
+    color: rgb(33, 33, 38);
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.cl-internal-c2xpfh {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    background-color: rgb(224 231 255);
+    color: rgb(79 70 229);
+    position: relative;
+    border-radius: 0.5rem;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-style: solid;
+    border-color: rgba(20, 12, 12, 0.03);
+    border-width: 0px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 2px 0px, rgba(25, 28, 33, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.03) 0px 0px 0px 1px;
+}
+
+.cl-internal-pp7u0o {
+    color: rgb(79 70 229);
+}
+
+.cl-internal-1jipkho, .cl-internal-190cjq9 {
+    color: rgb(79 70 229);
+}
+
+
+.cl-internal-dqnjy0, .cl-internal-1u67iw4, .cl-internal-bolkfx, .cl-internal-1xpngvq, .cl-internal-1u67iw4:hover{
+    color: rgb(30 27 75);
+}
+
+.cl-internal-13u79ez {
+    box-sizing: border-box;
+    user-select: none;
+    pointer-events: none;
+    inset: 0px;
+    position: absolute;
+
+}
+
+.cl-internal-1j5cao4, .cl-internal-q7chm5 {
+    background-color: rgb(224 231 255);
+    color:  rgb(79 70 229);
+}

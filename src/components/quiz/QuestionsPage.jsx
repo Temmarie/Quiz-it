@@ -83,7 +83,7 @@ function QuestionsPage() {
           </button>
           <button
             onClick={() => window.location.reload()}
-            className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 capitalise"
+            className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 capitalize"
           >
              <Link to="/quiz">Select new category</Link>
            
