@@ -4,15 +4,13 @@ import { UserButton, useUser } from '@clerk/clerk-react';
 const Profile = () => {
   const { user } = useUser();
 
-  console.log(user);
-
   const [quizResults, setQuizResults] = useState([]);
 
   useEffect(() => {
-    // Get all quiz results from localStorage
+    // Get quiz results from localStorage
     const storedResults = localStorage.getItem("quizResults");
     if (storedResults) {
-      setQuizResults(JSON.parse(storedResults)); // Parse and set the results
+      setQuizResults(JSON.parse(storedResults)); // Parse results directly
     }
   }, []);
 
@@ -70,8 +68,10 @@ const Profile = () => {
             </div>
           </section>
 
+          <div className="bg-indigo-50 rounded-lg p-6 shadow-md">
+
           <h2 className="text-3xl font-bold text-indigo-600 mb-6">Your Scores</h2>
-        <div className="bg-indigo-50 rounded-lg p-6 shadow-md">
+        
           <ul className="space-y-4 text-indigo-700">
             {quizResults.length > 0 ? (
               quizResults.map((result, index) => (
