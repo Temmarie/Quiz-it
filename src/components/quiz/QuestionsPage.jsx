@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react"; 
 import { useLocation } from "react-router-dom";
+import {  useUser } from "@clerk/clerk-react";
 import axios from "axios";
 import Questions from "./Question";
 import { Link } from 'react-router-dom';
+import { getFirestore, doc, setDoc } from "firebase/firestore"; 
+
+
 
 function QuestionsPage() {
   const location = useLocation();
@@ -16,6 +20,8 @@ function QuestionsPage() {
   const [showScore, setShowScore] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState('');
+
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -53,12 +59,32 @@ function QuestionsPage() {
   };
 
   // Function to handle quiz completion
-  const handleQuizCompletion = () => {
+  const handleQuizCompletion = async () => {
     setShowScore(true);
-    // Save the score to localStorage
-    localStorage.setItem("quizResults", JSON.stringify({ category, score }));
+  
+    if (!user || !user.id) {
+      console.error("User is not logged in or invalid user object.");
+      alert("You must be logged in to save your quiz results.");
+      return; // Exit early if the user is not logged in
+    }
+  
+    try {
+      // Save quiz result to Firestore
+      const db = getFirestore();
+      await setDoc(doc(db, "quizResults", user.id), {
+        category,
+        score,
+        date: new Date(),
+      });
+  
+      console.log("Quiz results saved successfully!");
+    } catch (error) {
+      console.error("Error saving quiz results:", error);
+      alert("Failed to save quiz results. Please try again later.");
+    }
   };
-
+  
+  
   // Calculate the progress percentage
   const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
 
