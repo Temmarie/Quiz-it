@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { UserButton, useUser } from "@clerk/clerk-react";
-import { db } from "/firebase"; // Correct path to `firebase.js`
-import { collection, getDocs, query, where } from "firebase/firestore";
 
 const Profile = () => {
   const { user } = useUser();
