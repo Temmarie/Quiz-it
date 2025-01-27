@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react"; 
-import { useLocation } from "react-router-dom";
-import {  useUser } from "@clerk/clerk-react";
+import { useLocation, Link } from "react-router-dom";
+import { useUser, useAuth } from "@clerk/clerk-react"; // Import useAuth hook
 import axios from "axios";
 import Questions from "./Question";
-import { Link } from 'react-router-dom';
-import { getFirestore, doc, setDoc } from "firebase/firestore"; 
-
-
+import { supabase } from '/supabaseClient'; // Import Supabase client
 
 function QuestionsPage() {
   const location = useLocation();
@@ -22,6 +19,7 @@ function QuestionsPage() {
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
   const { user } = useUser();
+  const { getToken } = useAuth(); // Use the useAuth hook
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -60,30 +58,40 @@ function QuestionsPage() {
 
   // Function to handle quiz completion
   const handleQuizCompletion = async () => {
+    const jwtToken = await getToken({ template: 'supabase' }); // Use the template name you configured in Clerk
+    await supabase.auth.setSession({ access_token: jwtToken });
+  
     setShowScore(true);
   
     if (!user || !user.id) {
       console.error("User is not logged in or invalid user object.");
       alert("You must be logged in to save your quiz results.");
-      return; // Exit early if the user is not logged in
+      return;
     }
   
+    // Save the quiz result to Supabase
     try {
-      // Save quiz result to Firestore
-      const db = getFirestore();
-      await setDoc(doc(db, "quizResults", user.id), {
-        category,
-        score,
-        date: new Date(),
-      });
-  
-      console.log("Quiz results saved successfully!");
+      const { data, error } = await supabase
+        .from('quiz_results')
+        .insert([
+          {
+            user_id: user.id, // Ensure user.id is a text value
+            category,
+            score: Math.round((score / questions.length) * 100),
+            date: new Date().toISOString,
+          },
+        ]);
+
+      if (error) {
+        throw error;
+      }
+
+      console.log('Quiz result saved:', data);
     } catch (error) {
-      console.error("Error saving quiz results:", error);
-      alert("Failed to save quiz results. Please try again later.");
+      console.error("Error saving quiz result:", error);
+      alert("Failed to save quiz result. Please try again.");
     }
   };
-  
   
   // Calculate the progress percentage
   const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
@@ -101,21 +109,16 @@ function QuestionsPage() {
           </h2>
 
           <div className="flex justify-around justify-center">
-          <button
-            onClick={() => window.location.reload()}
-            className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 capitalize"
-          >
-            Play {category.replace(/-/g, " ")} Again
-          </button>
-          <button
-            onClick={() => window.location.reload()}
-            className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 capitalize"
-          >
-             <Link to="/quiz">Select new category</Link>
-           
-          </button>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 capitalize"
+            >
+              Play {category.replace(/-/g, " ")} Again
+            </button>
+            <Link to="/quiz" className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 capitalize">
+              Select new category
+            </Link>
           </div>
-         
         </div>
       ) : (
         <>

@@ -4,6 +4,34 @@ import { useUser } from '@clerk/clerk-react';
 const Dashboard = () => {
   const { user } = useUser();
  
+  const fetchLeaderboard = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('quiz_results')
+      .select('user_id, sum(score) as total_score')
+      .group('user_id')
+      .order('total_score', { ascending: false });
+
+    if (error) throw error;
+
+    // Now fetch user details to display names along with scores
+    const leaderboard = await Promise.all(
+      data.map(async (entry) => {
+        const { data: userData } = await supabase
+          .from('users') // Assuming users table has a 'users' table
+          .select('username')
+          .eq('id', entry.user_id);
+        
+        return { name: userData[0]?.username || 'Unknown', score: entry.total_score };
+      })
+    );
+
+    setLeaderboard(leaderboard);
+  } catch (error) {
+    console.error('Error fetching leaderboard:', error);
+  }
+};
+
 
   return (
 <>
