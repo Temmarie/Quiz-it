@@ -78,7 +78,7 @@ function QuestionsPage() {
             user_id: user.id, // Ensure user.id is a text value
             category,
             score: Math.round((score / questions.length) * 100),
-            date: new Date().toISOString,
+            date: new Date().toISOString(), // Ensure date is correctly formatted
           },
         ]);
 
@@ -87,6 +87,7 @@ function QuestionsPage() {
       }
 
       console.log('Quiz result saved:', data);
+      alert('Quiz result saved successfully!');
     } catch (error) {
       console.error("Error saving quiz result:", error);
       alert("Failed to save quiz result. Please try again.");
