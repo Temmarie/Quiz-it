@@ -49,19 +49,46 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const { data, error } = await supabase
+        // Fetch top 10 scores from Supabase
+        const { data: quizResults, error } = await supabase
           .from("quiz_results")
           .select("user_id, score")
           .order("score", { ascending: false })
           .limit(10);
 
-        if (error) {
-          throw error;
-        }
+        if (error) throw error;
 
-        setLeaderboard(data);
+        // Fetch user details from Clerk for each user_id
+        const enrichedLeaderboard = await Promise.all(
+          quizResults.map(async (entry) => {
+            try {
+              const response = await fetch(
+                `https://api.clerk.dev/v1/users/${entry.user_id}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${import.meta.env.VITE_CLERK_SECRET_KEY}`, // Secure your API key
+                  },
+                }
+              );
+
+              if (!response.ok) throw new Error("Failed to fetch user");
+
+              const userData = await response.json();
+
+              return {
+                ...entry,
+                username: userData.username || userData.fullName || "Anonymous",
+              };
+            } catch (err) {
+              console.error("Error fetching user:", err);
+              return { ...entry, username: "Unknown User" };
+            }
+          })
+        );
+
+        setLeaderboard(enrichedLeaderboard);
       } catch (error) {
-        console.error("Error fetching leaderboard data:", error);
+        console.error("Error fetching leaderboard:", error);
       }
     };
 
@@ -89,7 +116,7 @@ const Dashboard = () => {
                   className="flex justify-between items-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow"
                 >
                   <span className="font-medium text-lg text-gray-800">
-                    User {entry.user_id} {/* Show partial user ID */}
+                     {entry.username} {/* Show partial user ID */}
                   </span>
                   <span className="text-indigo-600 font-semibold">
                     {entry.score} pts
