@@ -49,35 +49,29 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        // Fetch top 10 scores from Supabase
         const { data: quizResults, error } = await supabase
           .from("quiz_results")
           .select("user_id, score")
           .order("score", { ascending: false })
           .limit(10);
-
+  
         if (error) throw error;
-
-        // Fetch user details from Clerk for each user_id
+  
         const enrichedLeaderboard = await Promise.all(
           quizResults.map(async (entry) => {
             try {
               const response = await fetch(
-                `https://api.clerk.dev/v1/users/${entry.user_id}`,
-                {
-                  headers: {
-                    Authorization: `Bearer ${import.meta.env.VITE_CLERK_SECRET_KEY}`, // Secure your API key
-                  },
-                }
+                `http://localhost:3000/api/user/${entry.user_id}`
               );
-
+  
               if (!response.ok) throw new Error("Failed to fetch user");
-
+  
               const userData = await response.json();
-
+  
               return {
                 ...entry,
-                username: userData.username || userData.fullName || "Anonymous",
+                username: userData.username || "Anonymous",
+                profileImage: userData.profileImage,
               };
             } catch (err) {
               console.error("Error fetching user:", err);
@@ -85,16 +79,16 @@ const Dashboard = () => {
             }
           })
         );
-
+  
         setLeaderboard(enrichedLeaderboard);
       } catch (error) {
         console.error("Error fetching leaderboard:", error);
       }
     };
-
+  
     fetchLeaderboard();
   }, []);
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-white to-indigo-100 p-8">
       <h1 className="text-5xl font-extrabold text-indigo-600 mb-8 text-center">
