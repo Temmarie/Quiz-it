@@ -49,46 +49,51 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const { data: quizResults, error } = await supabase
+        const { data, error } = await supabase
           .from("quiz_results")
-          .select("user_id, score")
-          .order("score", { ascending: false })
-          .limit(10);
-  
-        if (error) throw error;
-  
-        const enrichedLeaderboard = await Promise.all(
-          quizResults.map(async (entry) => {
-            try {
-              const response = await fetch(
-                `http://localhost:3000/api/user/${entry.user_id}`
-              );
-  
-              if (!response.ok) throw new Error("Failed to fetch user");
-  
-              const userData = await response.json();
-  
-              return {
-                ...entry,
-                username: userData.username || "Anonymous",
-                profileImage: userData.profileImage,
-              };
-            } catch (err) {
-              console.error("Error fetching user:", err);
-              return { ...entry, username: "Unknown User" };
+          .select("user_id, score, category")
+          .order("score", { ascending: false });
+
+        if (error) {
+          throw error;
+        }
+
+        // Group by category and get the highest score for each category
+        const highestScores = data.reduce((acc, result) => {
+          if (!acc[result.category] || acc[result.category].score < result.score) {
+            acc[result.category] = result;
+          }
+          return acc;
+        }, {});
+
+        // Fetch user details for each highest score entry from Clerk API
+        const leaderboardWithUserDetails = await Promise.all(
+          Object.values(highestScores).map(async (entry) => {
+            const response = await fetch(`http://localhost:3000/api/user/${entry.user_id}`);
+
+            if (!response.ok) {
+              throw new Error("Failed to fetch user");
             }
+
+            const userData = await response.json();
+
+            return {
+              ...entry,
+              username: userData.username || "Anonymous",
+              profileImage: userData.profileImage,
+            };
           })
         );
-  
-        setLeaderboard(enrichedLeaderboard);
+
+        setLeaderboard(leaderboardWithUserDetails);
       } catch (error) {
         console.error("Error fetching leaderboard:", error);
       }
     };
-  
+
     fetchLeaderboard();
   }, []);
-  
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-white to-indigo-100 p-8">
       <h1 className="text-5xl font-extrabold text-indigo-600 mb-8 text-center">
@@ -109,8 +114,11 @@ const Dashboard = () => {
                   key={index}
                   className="flex justify-between items-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow"
                 >
-                  <span className="font-medium text-lg text-gray-800">
-                     {entry.username} {/* Show partial user ID */}
+                  <span className="font-medium text-lg text-gray-800 capitalize">
+                    {entry.username} {/* Show username */}
+                  </span>
+                  <span className="font-medium text-lg text-gray-800 capitalize">
+                    {entry.category} {/* Show category */}
                   </span>
                   <span className="text-indigo-600 font-semibold">
                     {entry.score} pts

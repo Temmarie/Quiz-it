@@ -64,8 +64,8 @@ const Profile = () => {
                 className="w-24 h-24 rounded-full shadow-md"
               />
               <div>
-                <p className="text-lg font-semibold text-indigo-800">
-                  {user ? `${user.firstName} ${user.lastName}` : "User"}
+                <p className="text-lg font-semibold text-indigo-800 capitalize">
+                  {user ? `${user.username}` : "User"}
                 </p>
                 <p className="text-sm text-indigo-500">{user ? user.emailAddress : "user@example.com"}</p>
               </div>
