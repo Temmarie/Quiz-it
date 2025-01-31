@@ -17,16 +17,15 @@ const App = () => {
     <Router>
       <Layout>
         <Routes>
-          {/* Home Page */}
-          <Route
-            path="/"
-            element={
-              <SignedIn>
-                <HomePage />
-              </SignedIn>
-            }
-          />
-          {/* Dashboard */}
+          {/* Home Page - Accessible to everyone */}
+          <Route path="/" element={<HomePage />} />
+
+          {/* Quiz Routes - Accessible to everyone */}
+          <Route path="/instructions" element={<Instructions />} />
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/questions" element={<QuestionsPage />} />
+
+          {/* Protected Routes - Only for Signed-In Users */}
           <Route
             path="/dashboard"
             element={
@@ -35,35 +34,6 @@ const App = () => {
               </SignedIn>
             }
           />
-          {/* Instructions Page */}
-          <Route
-            path="/instructions"
-            element={
-              <SignedIn>
-                <Instructions />
-              </SignedIn>
-            }
-          />
-          {/* Quiz Page */}
-          <Route
-            path="/quiz"
-            element={
-              <SignedIn>
-                <Quiz />
-              </SignedIn>
-            }
-          />
-
-<Route
-            path="/questions"
-            element={
-              <SignedIn>
-                <QuestionsPage />
-              </SignedIn>
-            }
-          />
-
-          {/* Profile */}
           <Route
             path="/profile"
             element={
@@ -72,7 +42,8 @@ const App = () => {
               </SignedIn>
             }
           />
-          {/* Sign-In */}
+
+          {/* Authentication Pages */}
           <Route
             path="/sign-in"
             element={
@@ -81,7 +52,6 @@ const App = () => {
               </SignedOut>
             }
           />
-          {/* Sign-Up */}
           <Route
             path="/sign-up"
             element={
@@ -90,7 +60,8 @@ const App = () => {
               </SignedOut>
             }
           />
-          {/* Redirect Unauthenticated Users */}
+
+          {/* Redirect all other routes to sign-in if not authenticated */}
           <Route
             path="*"
             element={
@@ -103,7 +74,6 @@ const App = () => {
       </Layout>
     </Router>
   );
-  
 };
 
 export default App;

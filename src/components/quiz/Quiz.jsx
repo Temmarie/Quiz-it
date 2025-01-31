@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useUser } from "@clerk/clerk-react"; // Import useUser to check authentication
 
 function Quiz() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [questionLimit, setQuestionLimit] = useState(20);
   const navigate = useNavigate();
+  const { isSignedIn } = useUser(); // Check if user is signed in
 
-  // Fetch categories on component mount
   useEffect(() => {
     axios
       .get("https://eaxeli.com/api/v1/questions/categories")
       .then((response) => {
-        console.log("Categories API response:", response.data);
         setCategories(response.data.data || []);
       })
       .catch((error) => {
@@ -39,6 +39,7 @@ function Quiz() {
       <h1 className="text-indigo-600 font-bold text-xl uppercase mb-3">
         Select a Quiz Category
       </h1>
+
       <select
         onChange={handleCategoryChange}
         className="w-full p-2 border-2 border-indigo-600 rounded-lg text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
@@ -75,6 +76,12 @@ function Quiz() {
       >
         Start Quiz
       </button>
+
+      {!isSignedIn && (
+        <p className="mt-3 text-sm text-red-500">
+          *Your scores won't be saved unless you sign in.
+        </p>
+      )}
     </div>
   );
 }
