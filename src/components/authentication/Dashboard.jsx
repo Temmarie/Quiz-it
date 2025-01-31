@@ -69,7 +69,7 @@ const Dashboard = () => {
         // Fetch user details for each highest score entry from Clerk API
         const leaderboardWithUserDetails = await Promise.all(
           Object.values(highestScores).map(async (entry) => {
-            const response = await fetch(`http://localhost:3000/api/user/${entry.user_id}`);
+            const response = await fetch(`https://quiz-it-express.onrender.com/api/user/${entry.user_id}`);
 
             if (!response.ok) {
               throw new Error("Failed to fetch user");
