@@ -19,6 +19,52 @@ A fun and exciting quiz app where you can test your knowledge across various cat
 
 ---
 
+
+
+## 📷 **Screenshots**  
+
+<table>
+  <tr>
+    <td>
+      <h3>HomePage</h3>
+      <img src="https://github.com/Temmarie/Quiz-it/blob/main/src/img/welcome%20page.png" 
+           alt="Welcome" width="400px" height="300px"/>
+    </td>
+    <td>
+      <h3>Leader Board</h3>
+      <img src="https://github.com/Temmarie/Quiz-it/blob/main/src/img/leaderboard.png" 
+           alt="leader board" width="400px" height="300px"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h3>User Profile</h3>
+      <img src="https://github.com/Temmarie/Quiz-it/blob/main/src/img/profile.png" 
+           alt="Profile" width="400px" height="300px"/>
+    </td>
+    <td>
+      <h3>Category Selection</h3>
+      <img src="https://github.com/Temmarie/Quiz-it/blob/main/src/img/categories.png" 
+           alt="Categories" width="400px" height="300px"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h3>Questions</h3>
+      <img src="https://github.com/Temmarie/Quiz-it/blob/main/src/img/questions%20page.png" 
+           alt="questions" width="400px" height="300px"/>
+    </td>
+    <td>
+      <h3>Instructions</h3>
+      <img src="https://github.com/Temmarie/Quiz-it/blob/main/src/img/quiz-instructions.png" 
+           alt="instructions" width="400px" height="300px"/>
+    </td>
+  </tr>
+</table>
+
+
+---
+
 ## 🛠 **Tech Stack**  
 ### **Frontend:**  
 - ⚡ **Vite + React.js** (Fast and optimized development)  
@@ -98,15 +144,20 @@ Your API should now be running at **`http://localhost:3000/`**
 
 ---
 
-## 📷 **Screenshots**  
-_(Add some screenshots of your app here!)_  
+ ## Author
 
----
+👤 Grace Tamara Ekunola
+
+- Github: @Temmarie
+- Twitter: @TemmarieW
+- Linkedin: Grace Tife Ekunola
+
 
 ## 🤝 **Contributing**  
-Feel free to fork the repo, create a new branch, and submit a pull request!  
+Feel free to fork the repo, create a new branch, and submit a pull request or check the [issues page](issues/).
 
 ---
+
 
 ## 📜 **License**  
 This project is licensed under the **MIT License**.  
@@ -115,4 +166,3 @@ This project is licensed under the **MIT License**.
 
 ### 🎉 **Enjoy playing Quiz It! and test your knowledge!** 🧠🚀  
 
-Let me know if you want any changes! 😊
