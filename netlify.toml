@@ -1,7 +1,7 @@
 [build]
-  base = "/quiz-it/"
+  base = "quiz-it"
   command = "npm run build"
-  publish = "build"
+  publish = "dists"
 
 [[redirects]]
   from = "/*"
